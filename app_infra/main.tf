@@ -18,21 +18,22 @@ resource "aws_iam_role" "codepipeline_role" {
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
-  name   = "flask_codepipeline_policy"
-  role   = aws_iam_role.codepipeline_role.id
+  name = "flask_codepipeline_policy"
+  role = aws_iam_role.codepipeline_role.id
   policy = jsonencode({
-    Version   = "2012-10-17"
+    Version = "2012-10-17"
     Statement = [
       {
-        Action = [
+        Effect   = "Allow"
+        Action   = [
           "s3:GetObject",
           "s3:GetObjectVersion",
           "s3:GetBucketVersioning",
-          "s3:PutObject",
           "s3:PutObjectAcl",
+          "s3:PutObject",
+          "iam:GetRole",
           "iam:PassRole",
         ]
-        Effect   = "Allow"
         Resource = [
           aws_s3_bucket.codepipeline_bucket.arn,
           "${aws_s3_bucket.codepipeline_bucket.arn}/*",
@@ -40,7 +41,37 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
       },
       {
         Effect   = "Allow"
-        Action   = ["codebuild:BatchGetBuilds", "codebuild:StartBuild"]
+        Action   = [
+          "codebuild:BatchGetBuilds",
+          "codebuild:StartBuild",
+        ]
+        Resource = "*"
+      },
+      {
+        Effect   = "Allow"
+        Action   = [
+          "cloudformation:DescribeStacks",
+          "kms:GenerateDataKey",
+          "iam:GetRole",
+          "iam:PassRole",
+        ]
+        Resource = "*"
+      },
+      {
+        Effect   = "Allow"
+        Action   = "kms:Decrypt"
+        Resource = aws_kms_key.flask_app_s3_kms_key.arn
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "ecs:DescribeServices",
+          "ecs:DescribeTaskDefinition",
+          "ecs:DescribeTasks",
+          "ecs:ListTasks",
+          "ecs:RegisterTaskDefinition",
+          "ecs:UpdateService",
+        ]
         Resource = "*"
       }
     ]
@@ -50,7 +81,6 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 resource "aws_codepipeline" "codepipeline" {
   name     = "flask_pipeline"
   role_arn = aws_iam_role.codepipeline_role.arn
-
   artifact_store {
     location = aws_s3_bucket.codepipeline_bucket.bucket
     type     = "S3"
@@ -94,6 +124,26 @@ resource "aws_codepipeline" "codepipeline" {
       }
     }
   }
+
+  stage {
+    name = "Deploy"
+
+    action {
+      name            = "Deploy"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "ECS"
+      version         = 1
+      run_order       = 1
+      input_artifacts = ["build_output"]
+
+      configuration = {
+        ClusterName = var.cluster_name
+        ServiceName = var.service_name
+        FileName = "${var.file_name}"
+      }
+    }
+  }
 }
 
 resource "aws_codebuild_project" "flask_app" {
@@ -109,13 +159,36 @@ resource "aws_codebuild_project" "flask_app" {
     image           = "aws/codebuild/amazonlinux2-x86_64-standard:4.0"
     type            = "LINUX_CONTAINER"
     privileged_mode = true
+    environment_variable {
+      name  = "AWS_ACCOUNT_ID"
+      value = var.aws_account_id
+    }
+    environment_variable {
+      name  = "AWS_DEFAULT_REGION"
+      value = var.aws_region
+    }
+    environment_variable {
+      name  = "IMAGE_REPO_NAME"
+      value = var.image_repo_name
+    }
+    environment_variable {
+      name  = "ECS_CLUSTER_NAME"
+      value = aws_ecs_cluster.flask_app.name
+    }
+    environment_variable {
+      name  = "ECS_SERVICE_NAME"
+      value = aws_ecs_service.flask_app.name
+    }
+    environment_variable {
+      name  = "ECS_TASK_DEFINITION"
+      value = aws_ecs_task_definition.flask_app.family
+    }
   }
   source {
     type      = "CODEPIPELINE"
     buildspec = "buildspec.yml"
   }
 }
-
 
 resource "aws_iam_role" "codebuild_role" {
   name               = "flask_codebuild_role"

@@ -46,3 +46,9 @@ variable "service_name" {
   type        = string
   description = "The name of the ECS Service."
 }
+
+variable "file_name" {
+  default     = "imagedefinitions.json"
+  type        = string
+  description = "The file name of the image definitions."
+}
