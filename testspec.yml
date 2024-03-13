@@ -1,0 +1,24 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - pip install flask Flask-Testing pytest
+  pre_build:
+    commands:
+      - echo Preparing to run tests...
+  build:
+    commands:
+      - echo Running tests...
+      - pytest src/tests/test_app.py -v
+  post_build:
+    commands:
+      - echo Tests completed.
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
+reports:
+  pytest-reports:
+    files:
+      - '**/test*.xml'
+    base-directory: 'tests'
