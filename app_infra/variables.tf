@@ -33,7 +33,7 @@ variable "github_repo_owner" {
 variable "github_repo_name" {
   description = "The GitHub repository name."
   type        = string
-  default     = "glowing-dollop"
+  default     = "dpsec-devops"
 }
 
 variable "github_branch" {

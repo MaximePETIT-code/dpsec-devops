@@ -1,9 +1,9 @@
 provider "aws" {
-  region = "eu-north-1"
+  region = var.aws_region
 }
 
 resource "aws_vpc" "spark_vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.vpc_cidr_block
   enable_dns_support = true
   enable_dns_hostnames = true
   tags = {
@@ -21,7 +21,7 @@ resource "aws_internet_gateway" "spark_igw" {
 
 resource "aws_subnet" "spark_subnet" {
   vpc_id            = aws_vpc.spark_vpc.id
-  cidr_block        = "10.0.1.0/24"
+  cidr_block        = var.subnet_cidr_block
   map_public_ip_on_launch = true
 
   tags = {
@@ -79,9 +79,9 @@ resource "aws_security_group" "spark_sg" {
 }
 
 resource "aws_instance" "spark_instance" {
-  ami                    = "ami-09a6bd44f658d0bbc"
-  instance_type          = "t3.micro"
-  key_name               = "myKey"
+  ami                    = var.ami_id
+  instance_type          = var.instance_type
+  key_name               = var.key_name
   subnet_id              = aws_subnet.spark_subnet.id
   vpc_security_group_ids = [aws_security_group.spark_sg.id]
 
