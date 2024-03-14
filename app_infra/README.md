@@ -7,7 +7,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.40.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
 ## Modules
 
@@ -54,16 +54,16 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_account_id"></a> [aws\_account\_id](#input\_aws\_account\_id) | The AWS account ID. | `string` | n/a | yes |
-| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | n/a | `string` | `"<region>"` | no |
+| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region. | `string` | `"eu-north-1"` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the ECS Cluster. | `string` | n/a | yes |
 | <a name="input_file_name"></a> [file\_name](#input\_file\_name) | The file name of the image definitions. | `string` | `"imagedefinitions.json"` | no |
-| <a name="input_github_branch"></a> [github\_branch](#input\_github\_branch) | n/a | `string` | `"main"` | no |
-| <a name="input_github_oauth_token"></a> [github\_oauth\_token](#input\_github\_oauth\_token) | OAuth token for GitHub authentication | `string` | n/a | yes |
-| <a name="input_github_repo_name"></a> [github\_repo\_name](#input\_github\_repo\_name) | n/a | `string` | `"glowing-dollop"` | no |
-| <a name="input_github_repo_owner"></a> [github\_repo\_owner](#input\_github\_repo\_owner) | n/a | `string` | `"MaximePETIT-code"` | no |
+| <a name="input_github_branch"></a> [github\_branch](#input\_github\_branch) | The branch in the GitHub repository to use. | `string` | `"main"` | no |
+| <a name="input_github_oauth_token"></a> [github\_oauth\_token](#input\_github\_oauth\_token) | OAuth token for GitHub authentication. | `string` | n/a | yes |
+| <a name="input_github_repo_name"></a> [github\_repo\_name](#input\_github\_repo\_name) | The GitHub repository name. | `string` | `"glowing-dollop"` | no |
+| <a name="input_github_repo_owner"></a> [github\_repo\_owner](#input\_github\_repo\_owner) | The GitHub repository owner. | `string` | `"MaximePETIT-code"` | no |
 | <a name="input_image_repo_name"></a> [image\_repo\_name](#input\_image\_repo\_name) | The name of the ECR repository. | `string` | n/a | yes |
 | <a name="input_image_repo_url"></a> [image\_repo\_url](#input\_image\_repo\_url) | n/a | `string` | `"<account-id>.dkr.ecr.<region>.amazonaws.com/<repository>"` | no |
-| <a name="input_image_tag"></a> [image\_tag](#input\_image\_tag) | n/a | `string` | `"latest"` | no |
+| <a name="input_image_tag"></a> [image\_tag](#input\_image\_tag) | The tag of the Docker image. | `string` | `"latest"` | no |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | The name of the ECS Service. | `string` | n/a | yes |
 
 ## Outputs
