@@ -1,5 +1,7 @@
 variable "aws_region" {
-  default = "<region>"
+  description = "The AWS region."
+  type        = string
+  default     = "eu-north-1"
 }
 
 variable "aws_account_id" {
@@ -8,7 +10,9 @@ variable "aws_account_id" {
 }
 
 variable "image_tag" {
-  default = "latest"
+  description = "The tag of the Docker image."
+  type        = string
+  default     = "latest"
 }
 
 variable "image_repo_name" {
@@ -21,34 +25,41 @@ variable "image_repo_url" {
 }
 
 variable "github_repo_owner" {
-  default = "MaximePETIT-code"
+  description = "The GitHub repository owner."
+  type        = string
+  default     = "MaximePETIT-code"
 }
 
 variable "github_repo_name" {
-  default = "glowing-dollop"
+  description = "The GitHub repository name."
+  type        = string
+  default     = "glowing-dollop"
 }
 
 variable "github_branch" {
-  default = "main"
+  description = "The branch in the GitHub repository to use."
+  type        = string
+  default     = "main"
 }
 
 variable "github_oauth_token" {
+  description = "OAuth token for GitHub authentication."
   type        = string
-  description = "OAuth token for GitHub authentication"
+  sensitive   = true
 }
 
 variable "cluster_name" {
-  type        = string
   description = "The name of the ECS Cluster."
+  type        = string
 }
 
 variable "service_name" {
-  type        = string
   description = "The name of the ECS Service."
+  type        = string
 }
 
 variable "file_name" {
-  default     = "imagedefinitions.json"
-  type        = string
   description = "The file name of the image definitions."
+  type        = string
+  default     = "imagedefinitions.json"
 }
