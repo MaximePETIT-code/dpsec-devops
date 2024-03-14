@@ -12,7 +12,7 @@ Before you begin, ensure you have the following:
 ## Infrastructures
 
 - [**Flask Application on AWS**](./app_infra/README.md): Deploys a Flask application using AWS ECS, ECR, and other services.
-- [**DocumentDB Cluster**](./db-infra/README.md): Sets up a DocumentDB cluster with monitoring and alerting.
+- [**DocumentDB Cluster**](./db_infra/README.md): Sets up a DocumentDB cluster with monitoring and alerting.
 - [**Apache Spark Instance**](./spark/README.md): Provisions an environment for an Apache Spark instance.
 
 ## Infrastructure 1: Flask Application on AWS
