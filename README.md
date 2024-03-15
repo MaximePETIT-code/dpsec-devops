@@ -63,10 +63,28 @@ Each infrastructure requires specific variables to be set. Refer to the `variabl
 
 To remove the deployed resources, run `terraform destroy` in the respective infrastructure directory. Confirm the destruction when prompted.
 
-## Contributing
+## Screenshots AWS
 
-Contributions are welcome! Please open an issue or pull request for any improvements or fixes.
+### CI / CD Flask App
 
-## License
+![](images/screencapture-eu-north-1-console-aws-amazon-cloudwatch-home-2024-03-15-11_03_47.png)
+![](images/screencapture-eu-north-1-console-aws-amazon-codesuite-codepipeline-pipelines-flask-pipeline-view-2024-03-15-10_49_33.png)
+![](images/screencapture-eu-north-1-console-aws-amazon-ec2-home-2024-03-15-10_59_52.png)
+![](images/screencapture-eu-north-1-console-aws-amazon-ecr-repositories-private-687171646359-flask-app-2024-03-15-10_55_45.png)
+![](images/screencapture-eu-north-1-console-aws-amazon-ecs-v2-clusters-flask-app-cluster-services-2024-03-15-10_57_44.png)
+![](images/screencapture-eu-north-1-console-aws-amazon-ecs-v2-clusters-flask-app-cluster-services-flask-app-service-health-2024-03-15-10_58_15.png)
+![](images/screencapture-eu-north-1-console-aws-amazon-kms-home-2024-03-15-10_52_06.png)
+![](images/screencapture-s3-console-aws-amazon-s3-buckets-flask-demo-codepipeline-bucket-hakan-2024-03-15-10_51_04.png)
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+---
+
+### DocumentDB
+
+![](images/screencapture-eu-west-3-console-aws-amazon-cloudwatch-home-2024-03-15-10_54_57.png)
+![](images/screencapture-eu-west-3-console-aws-amazon-docdb-home-2024-03-15-11_05_18.png)
+
+---
+
+### Apache Spark
+
+![](images/screencapture-eu-north-1-console-aws-amazon-ec2-home-2024-03-15-11_06_13.png)
